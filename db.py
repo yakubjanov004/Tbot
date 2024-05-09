@@ -15,8 +15,6 @@ def main():
 )
 connection.commit()
 
-print(cursor.execute("SELECT * FROM foydalanuvchilar_soni").fetchall())
-
 def create_user(*args):
     """
     args - bu funksiya qabul qilayotgan foydalanuvchi ma'lumotlar to'plami
