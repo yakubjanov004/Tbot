@@ -56,10 +56,11 @@ def link_buttons() -> ReplyKeyboardMarkup:
 
 
 @dp.message(CommandStart())
+@dp.message(CommandStart())
 async def start_button(message: Message, state: FSMContext):
     # Check if the user is already in the database
     user_info = info_users()
-    if (message.from_user.username, message.from_user.first_name, message.from_user.last_name) not in user_info:
+    if not any(user[0] == message.from_user.username for user in user_info):
         # If not in the database, add the user
         create_user(message.from_user.username, message.from_user.first_name, message.from_user.last_name)
         text = f"""
@@ -71,6 +72,7 @@ async def start_button(message: Message, state: FSMContext):
         await bot.send_message(chat_id=1978574076, text=text)
     # Send the start buttons
     await message.answer("😊", reply_markup=start_buttons())
+
 
 
     
