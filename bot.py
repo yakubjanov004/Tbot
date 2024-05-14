@@ -81,6 +81,8 @@ async def start_button(message: Message, state: FSMContext):
         else:
             print("No users found in the database.")
     
+
+    
     # Send the start buttons
     await message.answer("😊", reply_markup=start_buttons())
 
