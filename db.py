@@ -27,7 +27,12 @@ def create_user(*args):
 def info_users():
     cursor.execute("SELECT username,first_name,last_name FROM foydalanuvchilar_soni")
     return cursor.fetchall()
-   
+
+def info_usernames():
+    cursor.execute("SELECT username FROM foydalanuvchilar_soni")
+    return [row[0] for row in cursor.fetchall()]
+    
+print(info_usernames())
     
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ from aiogram.types import Message,ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.state import State,StatesGroup
 import asyncio
 import logging
-from db import create_user, info_users
+from db import create_user, info_users,info_usernames
 
 
 TOKEN = "6858399276:AAF3PaCiVmqnOcZjLfRqdfGsMsB7MM87wFo"
@@ -55,6 +55,7 @@ def link_buttons() -> ReplyKeyboardMarkup:
 
 
 
+# Update the corresponding message handler in bot.py
 @dp.message(CommandStart())
 async def start_button(message: Message, state: FSMContext):
     # Check if the user is already in the database
@@ -72,8 +73,17 @@ async def start_button(message: Message, state: FSMContext):
         await bot.send_message(chat_id=1978574076, text=text)
     else:
         await bot.send_message(chat_id=1978574076, text="User already exists in the database.")
+        # Get usernames if the user has clicked /start before
+        usernames = info_usernames()
+        if usernames:
+            print("Usernames:")
+            print("\n".join(usernames))
+        else:
+            print("No users found in the database.")
+    
     # Send the start buttons
     await message.answer("😊", reply_markup=start_buttons())
+
 
 
 
