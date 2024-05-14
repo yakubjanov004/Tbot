@@ -82,7 +82,7 @@ async def start_button(message: Message, state: FSMContext):
             print("No users found in the database.")
     
 
-    
+
     # Send the start buttons
     await message.answer("😊", reply_markup=start_buttons())
 
@@ -143,10 +143,10 @@ async def qanaqadir_funksiya(message: Message):
 @dp.message(F.text == "Botga start berganlar!")
 async def info_users3(message: types.Message):
     data = info_users()
-    await message.answer("Username, First name, Last name")
+    await message.answer("Username, First name")
     text = ""
     for user in data:
-        text += f"@{user[0]},  {user[1]},  {user[2]}\n"
+        text += f"@{user[0]},  {user[1]}"
 
     await message.answer(text)
     await message.answer("Bu xammaga ko'rinadi")
