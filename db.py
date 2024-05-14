@@ -12,7 +12,7 @@ def main():
         last_name TEXT
 )
 """
-)
+)    
 connection.commit()
 
 def create_user(*args):

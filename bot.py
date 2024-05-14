@@ -56,19 +56,23 @@ def link_buttons() -> ReplyKeyboardMarkup:
 
 
 @dp.message(CommandStart())
-async def start_button(message: Message):    
-    await message.answer("😊", reply_markup=start_buttons())  
-    text = f"""
-    Start bosildi!!!
-    Username: @{message.from_user.username}
-    Name: {message.from_user.first_name}
-    Last name: {message.from_user.last_name}
-    """
-    username = message.from_user.username
-    first_name = message.from_user.first_name
-    last_name = message.from_user.last_name
-    create_user(username,first_name,last_name)
-    await bot.send_message(chat_id=1978574076,text=text)
+async def start_button(message: Message, state: FSMContext):
+    # Check if the user is already in the database
+    user_info = info_users()
+    if (message.from_user.username, message.from_user.first_name, message.from_user.last_name) not in user_info:
+        # If not in the database, add the user
+        create_user(message.from_user.username, message.from_user.first_name, message.from_user.last_name)
+        text = f"""
+        Start bosildi!!!
+        Username: @{message.from_user.username}
+        Name: {message.from_user.first_name}
+        Last name: {message.from_user.last_name}
+        """
+        await bot.send_message(chat_id=1978574076, text=text)
+    # Send the start buttons
+    await message.answer("😊", reply_markup=start_buttons())
+
+
     
 
 @dp.message(F.text == "Bot haqida🙂")
@@ -124,7 +128,7 @@ async def info_users3(message: types.Message):
     await message.answer("Username, First name, Last name")
     text = ""
     for user in data:
-        text += f" @{user[0]},   {user[1]},   {user[2]}\n"
+        text += f"@{user[0]},  {user[1]},  {user[2]}\n"
 
     await message.answer(text)
     await message.answer("Bu xammaga ko'rinadi")
