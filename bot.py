@@ -73,13 +73,7 @@ async def start_button(message: Message, state: FSMContext):
         await bot.send_message(chat_id=1978574076, text=text)
     else:
         await bot.send_message(chat_id=1978574076, text="User already exists in the database.")
-        # Get usernames if the user has clicked /start before
-        usernames = info_usernames()
-        if usernames:
-            print("Usernames:")
-            print("\n".join(usernames))
-        else:
-            print("No users found in the database.")
+        
     
 
 
@@ -146,7 +140,7 @@ async def info_users3(message: types.Message):
     await message.answer("Username, First name")
     text = ""
     for user in data:
-        text += f"@{user[0]},  {user[1]}"
+        text += f"@{user[0]},  {user[1]}\n"
 
     await message.answer(text)
     await message.answer("Bu xammaga ko'rinadi")

@@ -32,7 +32,6 @@ def info_usernames():
     cursor.execute("SELECT username FROM foydalanuvchilar_soni")
     return [row[0] for row in cursor.fetchall()]
     
-print(info_usernames())
     
 
 if __name__ == "__main__":
