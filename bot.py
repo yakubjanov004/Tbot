@@ -78,6 +78,7 @@ async def start_button(message: Message, state: FSMContext):
 
 
 
+
     
 
 @dp.message(F.text == "Bot haqida🙂")
