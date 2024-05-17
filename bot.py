@@ -3,8 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message,ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.state import State,StatesGroup
-import asyncio
-import logging
+import asyncio, random, logging, emoji
 from db import create_user, info_users,info_usernames
 
 
@@ -72,7 +71,13 @@ async def start_button(message: Message, state: FSMContext):
         """
         await bot.send_message(chat_id=1978574076, text=text)
     else:
-        await bot.send_message(chat_id=1978574076, text="User already exists in the database.")
+        text = f"""
+        Qaytadan yana start bosildi!!!
+        Username: @{message.from_user.username}
+        Name: {message.from_user.first_name}
+        Last name: {message.from_user.last_name}
+        """
+        await bot.send_message(chat_id=1978574076, text=text)
         
     
 
@@ -175,9 +180,24 @@ async def set_savol(message: types.Message, state: FSMContext):
     ...
     {data['savol']}
     """
-    await message.answer("Savol yuborildi...")
-    await message.answer("Javob qaytarishga xarakat qilaman😌")
+    await message.answer("yuborildi...")
     await bot.send_message(chat_id=1978574076,text=text)
+
+
+
+
+# List of emojis to randomly choose from
+emoji_list = ["😃", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "😘", "😗", "😙", "😚", "😋", "😜", "😝", "😛", "🤑", "🤗", "🤔", "🤐", "🤓", "😎", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😓", "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯", "😲", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😓", "😶", "😐", "😑", "😬", "🙄", "😯", "😲", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😓"]
+
+# Handler for responding to any emoji
+@dp.message()
+async def respond_to_emoji(message: Message):
+    text = message.text
+
+    # Check if the message contains any emoji
+    if any(char in emoji.EMOJI_DATA for char in text):
+        random_emoji = random.choice(emoji_list)  # Select a random emoji from the list
+        await message.answer(random_emoji)  # Respond with the selected emoji
 
     
 
