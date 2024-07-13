@@ -1,1 +1,2 @@
-aiogram
+aiogram==3.6.0 
+emoji==2.12.1

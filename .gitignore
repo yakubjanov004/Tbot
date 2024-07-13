@@ -1,6 +1,9 @@
 
 
 telegram_bot.db
-sa.py
 *.pyc
-__pycache__/
+__pycache_
+bot.log
+
+
+"7143096410:AAEdYgERHb0_0UoJVPZFv-4a0kHBK5C6KXk"
