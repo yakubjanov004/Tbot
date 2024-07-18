@@ -63,7 +63,7 @@ def link_buttons() -> ReplyKeyboardMarkup:
     buttons = [
         [KeyboardButton(text="Telegram"), KeyboardButton(text="Instagram")],
         [KeyboardButton(text="Facebook"), KeyboardButton(text="Telegram kanal")],
-        [KeyboardButton(text="Tirikchilik uz"), KeyboardButton(text="Orqaga")]
+        [KeyboardButton(text="Orqaga")]
     ]
     return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
 
@@ -126,11 +126,6 @@ async def telegram_channel(message: Message):
     await message.answer("Telegram kanal link⬇️")
     await message.answer("https://t.me/Ali_dev004")
     await message.answer("Bu mening kanalim emas(!menda kanal yo'q!),\nlekin adminman😁")
-
-@dp.message(F.text == "Tirikchilik uz")
-async def telegram_channel(message: Message): 
-    await message.answer("Tirikchilik uz  link⬇️")
-    await message.answer("Xali Tirikchilik uz  yo'q...")
 
 @dp.message(F.text == "Orqaga")
 async def back(message: Message): 
