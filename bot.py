@@ -3,6 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 import asyncio, random, logging, emoji, sqlite3, sys 
+from aiogram.utils import start_webhook
 from contextlib import closing
 
 logging.basicConfig(level=logging.INFO,
@@ -14,6 +15,13 @@ logging.basicConfig(level=logging.INFO,
                     )
 
 TOKEN = "7143096410:AAEdYgERHb0_0UoJVPZFv-4a0kHBK5C6KXk"  
+WEBHOOK_HOST = 'https://yakubjanov004.alwaysdata.net'  
+WEBHOOK_PATH = f'/webhook/{TOKEN}'
+WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
+
+WEBAPP_HOST = '185.31.40.25'  
+WEBAPP_PORT = 7007 
+
 bot = Bot(TOKEN)
 dp = Dispatcher()
 
@@ -178,9 +186,28 @@ async def handle_message(message: types.Message):
         random_emoji = random.choice(emoji_list)
         await message.answer(random_emoji)
 
+async def on_startup(dispatcher):
+    logging.info("Webhookni sozlash...")
+    await bot.set_webhook(WEBHOOK_URL)
+    logging.info("Webhook sozlandi!")
+
+async def on_shutdown(dispatcher):
+    logging.warning('Shutting down..')
+    await bot.delete_webhook()
+    logging.warning('Bye!')
+
+
 async def main():
     print("Bot muvaffaqiyatli ishga tushdi !!!")
     await dp.start_polling(bot)
+    await start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_PATH,
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
