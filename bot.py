@@ -3,7 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 import asyncio, random, logging, emoji, sqlite3, sys 
-from aiogram.utils import start_webhook
+from aiogram.webhook import Webhook
 from contextlib import closing
 
 logging.basicConfig(level=logging.INFO,
@@ -199,8 +199,7 @@ async def on_shutdown(dispatcher):
 
 async def main():
     print("Bot muvaffaqiyatli ishga tushdi !!!")
-    await dp.start_polling(bot)
-    await start_webhook(
+    webhook = Webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_PATH,
         on_startup=on_startup,
@@ -208,6 +207,8 @@ async def main():
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
+    await webhook.start()
+
 
 if __name__ == "__main__":
     asyncio.run(main())
