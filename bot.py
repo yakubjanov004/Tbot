@@ -3,7 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 import asyncio, random, logging, emoji, sqlite3, sys 
-from aiogram.webhook import Webhook
+from aiohttp import web
 from contextlib import closing
 
 logging.basicConfig(level=logging.INFO,
@@ -195,20 +195,29 @@ async def on_shutdown(dispatcher):
     logging.warning('Shutting down..')
     await bot.delete_webhook()
     logging.warning('Bye!')
-
+async def handle(request):
+    if request.method == 'POST':
+        json_data = await request.json()
+        update = types.Update(**json_data)
+        await dp.process_update(update)
+        return web.Response()
 
 async def main():
-    print("Bot muvaffaqiyatli ishga tushdi !!!")
-    webhook = Webhook(
-        dispatcher=dp,
-        webhook_path=WEBHOOK_PATH,
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        host=WEBAPP_HOST,
-        port=WEBAPP_PORT,
-    )
-    await webhook.start()
-
+    app = web.Application()
+    app.router.add_post(WEBHOOK_PATH, handle)
+    await on_startup(app)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, WEBAPP_HOST, WEBAPP_PORT)
+    await site.start()
+    logging.info(f"Webhook server running on {WEBAPP_HOST}:{WEBAPP_PORT}")
+    try:
+        while True:
+            await asyncio.sleep(3600)  
+    except KeyboardInterrupt:
+        pass
+    finally:
+        await on_shutdown(app)
 
 if __name__ == "__main__":
     asyncio.run(main())
