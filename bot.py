@@ -180,6 +180,8 @@ async def handle_message(message: types.Message):
         await message.answer(random_emoji)
 
 async def main():
+    logging.info("Webhook'ni o'chirish...")
+    await bot.delete_webhook()  # Webhook'ni o'chirish
     logging.info("Bot polling rejimida ishga tushmoqda...")
     await dp.start_polling(bot)
 
