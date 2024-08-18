@@ -15,13 +15,6 @@ logging.basicConfig(level=logging.INFO,
                     )
 
 TOKEN = "7143096410:AAEdYgERHb0_0UoJVPZFv-4a0kHBK5C6KXk"  
-WEBHOOK_HOST = 'https://yakubjanov004.alwaysdata.net'  
-WEBHOOK_PATH = f'/webhook/{TOKEN}'
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-
-WEBAPP_HOST = '185.31.40.25'  
-WEBAPP_PORT = 7007 
-
 bot = Bot(TOKEN)
 dp = Dispatcher()
 
@@ -186,38 +179,10 @@ async def handle_message(message: types.Message):
         random_emoji = random.choice(emoji_list)
         await message.answer(random_emoji)
 
-async def on_startup(dispatcher):
-    logging.info("Webhookni sozlash...")
-    await bot.set_webhook(WEBHOOK_URL)
-    logging.info("Webhook sozlandi!")
-
-async def on_shutdown(dispatcher):
-    logging.warning('Shutting down..')
-    await bot.delete_webhook()
-    logging.warning('Bye!')
-async def handle(request):
-    if request.method == 'POST':
-        json_data = await request.json()
-        update = types.Update(**json_data)
-        await dp.process_update(update)
-        return web.Response()
-
 async def main():
-    app = web.Application()
-    app.router.add_post(WEBHOOK_PATH, handle)
-    await on_startup(app)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    site = web.TCPSite(runner, WEBAPP_HOST, WEBAPP_PORT)
-    await site.start()
-    logging.info(f"Webhook server running on {WEBAPP_HOST}:{WEBAPP_PORT}")
-    try:
-        while True:
-            await asyncio.sleep(3600)  
-    except KeyboardInterrupt:
-        pass
-    finally:
-        await on_shutdown(app)
+    logging.info("Bot polling rejimida ishga tushmoqda...")
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
     asyncio.run(main())
+
