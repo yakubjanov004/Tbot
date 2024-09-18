@@ -148,9 +148,8 @@ async def info_users3(message: types.Message):
 @dp.message(F.text == "Mening ma'lumotlarim")
 async def text_chiqarish(message: Message): 
     name = "Ulug'bek"
-    age = 20
     familiya = "Yoqubjonov"                       
-    await message.answer(text=f"Ism: {name},\nFamiliya: {familiya}, \nYosh: {age},")
+    await message.answer(text=f"Ism: {name},\nFamiliya: {familiya}")
 
 emoji_list = [
     "😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", 
@@ -180,11 +179,10 @@ async def handle_message(message: types.Message):
         await message.answer(random_emoji)
 
 async def main():
-    logging.info("Webhook'ni o'chirish...")
-    await bot.delete_webhook()  # Webhook'ni o'chirish
     logging.info("Bot polling rejimida ishga tushmoqda...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)  
     asyncio.run(main())
 
