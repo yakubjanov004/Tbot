@@ -146,6 +146,7 @@ async def info_users3(message: types.Message):
         text = "Username, First name\n\n"
         text += "\n".join(f"{idx+1}. @{user[0]}, {user[1]}" for idx, user in enumerate(data))
         await message.answer(text)
+        await message.answer("Bu xammaga ko'rinadi!!!")
 
 
 @dp.message(F.text == "Mening ma'lumotlarim")
