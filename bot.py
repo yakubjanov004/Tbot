@@ -141,9 +141,14 @@ async def qanaqadir_funksiya(message: Message):
 async def info_users3(message: types.Message):
     data = info_users()
     text = "Username, First name\n\n"
+    for idx, user in enumerate(data):
+        print(f"{idx+1}. @{user[0]}, {user[1]}")  
+    
     text += "\n".join(f"{idx+1}. @{user[0]}, {user[1]}" for idx, user in enumerate(data))
     await message.answer(text)
     await message.answer("Bu xammaga ko'rinadi")
+
+
 
 @dp.message(F.text == "Mening ma'lumotlarim")
 async def text_chiqarish(message: Message): 
