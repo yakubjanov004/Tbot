@@ -72,8 +72,10 @@ def link_buttons() -> ReplyKeyboardMarkup:
 async def start_button(message: Message, state: FSMContext):
     user_info = info_users()
     user_exists = any(user[0] == message.from_user.username for user in user_info)
-
+    if not user_exists:
+        create_user(message.from_user.username, message.from_user.first_name, message.from_user.last_name)
     await message.answer("😊", reply_markup=start_buttons())
+
 
 @dp.message(F.text == "Bot haqida🙂")
 async def bot_haqida(message: Message): 
@@ -140,14 +142,10 @@ async def qanaqadir_funksiya(message: Message):
 @dp.message(F.text == "Botga start berganlar!")
 async def info_users3(message: types.Message):
     data = info_users()
-    text = "Username, First name\n\n"
-    for idx, user in enumerate(data):
-        print(f"{idx+1}. @{user[0]}, {user[1]}")  
-    
-    text += "\n".join(f"{idx+1}. @{user[0]}, {user[1]}" for idx, user in enumerate(data))
-    await message.answer(text)
-    await message.answer("Bu xammaga ko'rinadi")
-
+    if data:
+        text = "Username, First name\n\n"
+        text += "\n".join(f"{idx+1}. @{user[0]}, {user[1]}" for idx, user in enumerate(data))
+        await message.answer(text)
 
 
 @dp.message(F.text == "Mening ma'lumotlarim")
