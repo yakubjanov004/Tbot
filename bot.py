@@ -55,7 +55,7 @@ initialize_database()
 def start_buttons() -> ReplyKeyboardMarkup:
     buttons = [
         [KeyboardButton(text="Bot haqida🙂"), KeyboardButton(text="Rasm🔄")],
-        [KeyboardButton(text="Link📎"), KeyboardButton(text="Nmadir")],
+        [KeyboardButton(text="Link📎"), KeyboardButton(text="Rasm1")],
         [KeyboardButton(text="Botga start berganlar!"), KeyboardButton(text="Mening ma'lumotlarim")],
     ]
     return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
@@ -88,6 +88,7 @@ image_urls = [
     'https://wallpapers.com/images/hd/black-and-white-heart-750-x-1332-background-7goeyde5jitleu3b.jpg',
     'https://dlcdnwebimgs.asus.com/gain/161DFF39-ECAE-48F6-B10E-52179600208F',
     'https://i.pinimg.com/736x/b9/6d/ba/b96dba2c130bfa40adb3928ca9c3d45c.jpg',
+    'https://imgur.com/a/PUnUzb9',
 ]
 
 user_images = {}
@@ -134,9 +135,25 @@ async def telegram_channel(message: Message):
 async def back(message: Message): 
     await message.answer(text="back🔙", reply_markup=start_buttons())
 
-@dp.message(F.text == "Nmadir")
-async def qanaqadir_funksiya(message: Message): 
-    await message.answer("bu qanaqadir funksiya qo'shiladi...")
+image_urls1 = [
+    'https://imgur.com/a/post-PUnUzb9',
+    'https://imgur.com/a/8dy9SDB',
+]
+
+user_images1 = {}
+
+@dp.message(F.text == "Rasm1")
+async def rasm_chiqarish(message: Message):
+    user_id1 = message.from_user.id
+
+    if user_id1 not in user_images1:
+        user_images1[user_id1] = list(image_urls1)  
+
+    if not user_images1[user_id1]:  
+        user_images1[user_id1] = list(image_urls1)
+
+    random_image_url1 = user_images1[user_id1].pop(0)  
+    await bot.send_photo(chat_id=message.from_user.id, photo=random_image_url1)
 
 
 @dp.message(F.text == "Botga start berganlar!")
