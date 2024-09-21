@@ -55,7 +55,7 @@ initialize_database()
 def start_buttons() -> ReplyKeyboardMarkup:
     buttons = [
         [KeyboardButton(text="Bot haqida🙂"), KeyboardButton(text="Rasm🔄")],
-        [KeyboardButton(text="Link📎"), KeyboardButton(text="Rasm1")],
+        [KeyboardButton(text="Link📎"), KeyboardButton(text="Rasm🙂")],
         [KeyboardButton(text="Botga start berganlar!"), KeyboardButton(text="Mening ma'lumotlarim")],
     ]
     return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
@@ -138,11 +138,19 @@ async def back(message: Message):
 image_urls1 = [
     'https://imgur.com/a/post-PUnUzb9',
     'https://imgur.com/a/8dy9SDB',
+    'https://imgur.com/a/Bq38dmO',
+    'https://imgur.com/a/FL7zxXO',
+    'https://imgur.com/a/GWOTHQg',
+    'https://imgur.com/a/kR11d9P',
+    'https://imgur.com/a/XjB0xKL',
+    'https://imgur.com/a/HKBGkxq',
+    'https://imgur.com/a/caJqQS4',
+
 ]
 
 user_images1 = {}
 
-@dp.message(F.text == "Rasm1")
+@dp.message(F.text == "Rasm🙂")
 async def rasm_chiqarish(message: Message):
     user_id1 = message.from_user.id
 
@@ -206,4 +214,3 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)  
     asyncio.run(main())
-
