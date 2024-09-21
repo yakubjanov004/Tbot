@@ -3,7 +3,6 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 import asyncio, random, logging, emoji, sqlite3, sys 
-from aiohttp import web
 from contextlib import closing
 
 logging.basicConfig(level=logging.INFO,
@@ -79,7 +78,17 @@ async def start_button(message: Message, state: FSMContext):
 
 @dp.message(F.text == "Bot haqida🙂")
 async def bot_haqida(message: Message): 
-    await message.answer("Bu yerda bot nima qila olishi haqida yozilishi kerak edi...")
+    await message.answer(
+        "😊 *Salom!*\n\n"
+        "Bu bot orqali siz:\n\n"
+        "1️⃣ Rasmlar almashishingiz 📸\n"
+        "2️⃣ Foydali havolalarni ko'rishingiz 🔗\n"
+        "3️⃣ Bot foydalanuvchilarini ko'rishingiz 👥\n"
+        "4️⃣ Shaxsiy ma'lumotlaringizni ko'rishingiz mumkin 👤\n\n"
+        "Bot oddiy echo emas! Men o'zim javob yozishim mumkin ✍️, "
+        "shuningdek, bot emojilarga random emoji bilan avto javob qaytaradi! 🤖😊\n\n"
+        "Bot shunchaki yaratilgan, va start bosgan foydalanuvchilarni saqlab boradi 📊."
+    )
 
 image_urls = [
     'https://w0.peakpx.com/wallpaper/344/317/HD-wallpaper-red-love-hearts-dark-neon-love-hearts-loveurhunny-pretty-thumbnail.jpg',
@@ -88,7 +97,7 @@ image_urls = [
     'https://wallpapers.com/images/hd/black-and-white-heart-750-x-1332-background-7goeyde5jitleu3b.jpg',
     'https://dlcdnwebimgs.asus.com/gain/161DFF39-ECAE-48F6-B10E-52179600208F',
     'https://i.pinimg.com/736x/b9/6d/ba/b96dba2c130bfa40adb3928ca9c3d45c.jpg',
-    'https://imgur.com/a/PUnUzb9',
+    'https://tuit.uz/logos/tuit_slide_two.jpg',
 ]
 
 user_images = {}
@@ -144,7 +153,6 @@ image_urls1 = [
     'https://imgur.com/a/kR11d9P',
     'https://imgur.com/a/XjB0xKL',
     'https://imgur.com/a/HKBGkxq',
-    'https://imgur.com/a/caJqQS4',
 
 ]
 
