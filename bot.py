@@ -174,8 +174,8 @@ async def rasm_chiqarish(message: Message):
 
 
 video_urls = [
-    'https://www.dropbox.com/scl/fi/auw17d6m0hp4890qud2e1/VID_20231118_084818_012.mp4?rlkey=p74e43f38lwzwffw8wbvwv8s5&st=xew7j6cv&dl=0',
-    'https://www.dropbox.com/scl/fi/xxkjd7iqo3ljnl07hf38l/20240712_224156.mp4?rlkey=ytlr5swqmdgrofl02giv4mvnu&st=7a8uq1yv&dl=0',
+    'https://www.dropbox.com/scl/fi/auw17d6m0hp4890qud2e1/VID_20231118_084818_012.mp4?rlkey=p74e43f38lwzwffw8wbvwv8s5&st=xew7j6cv&dl=1',
+    'https://www.dropbox.com/scl/fi/xxkjd7iqo3ljnl07hf38l/20240712_224156.mp4?rlkey=ytlr5swqmdgrofl02giv4mvnu&st=7a8uq1yv&dl=1',
 
 ]
 
