@@ -56,6 +56,7 @@ def start_buttons() -> ReplyKeyboardMarkup:
         [KeyboardButton(text="Bot haqida🙂"), KeyboardButton(text="Rasm🔄")],
         [KeyboardButton(text="Link📎"), KeyboardButton(text="Rasm🙂")],
         [KeyboardButton(text="Botga start berganlar!"), KeyboardButton(text="Mening ma'lumotlarim")],
+        [KeyboardButton(text="Video🔄"), KeyboardButton(text="vv")],
     ]
     return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
 
@@ -170,6 +171,29 @@ async def rasm_chiqarish(message: Message):
 
     random_image_url1 = user_images1[user_id1].pop(0)  
     await bot.send_photo(chat_id=message.from_user.id, photo=random_image_url1)
+
+
+video_urls = [
+    'https://www.dropbox.com/scl/fi/auw17d6m0hp4890qud2e1/VID_20231118_084818_012.mp4?rlkey=p74e43f38lwzwffw8wbvwv8s5&st=xew7j6cv&dl=0',
+    'https://www.dropbox.com/scl/fi/xxkjd7iqo3ljnl07hf38l/20240712_224156.mp4?rlkey=ytlr5swqmdgrofl02giv4mvnu&st=7a8uq1yv&dl=0',
+
+]
+
+user_videos = {}
+
+@dp.message(F.text == "Video🔄")
+async def video_chiqarish(message: Message):
+    user_id = message.from_user.id
+
+    if user_id not in user_videos:
+        user_videos[user_id] = list(video_urls)  
+
+    if not user_videos[user_id]:  
+        user_videos[user_id] = list(video_urls)
+
+    random_video_url = user_videos[user_id].pop(0)  
+    await bot.send_video(chat_id=message.from_user.id, video=random_video_url)
+
 
 
 @dp.message(F.text == "Botga start berganlar!")
