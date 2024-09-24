@@ -174,9 +174,8 @@ async def rasm_chiqarish(message: Message):
 
 
 video_urls = [
-    'https://www.dropbox.com/scl/fi/auw17d6m0hp4890qud2e1/VID_20231118_084818_012.mp4?rlkey=p74e43f38lwzwffw8wbvwv8s5&st=xew7j6cv&dl=1',
-    'https://www.dropbox.com/scl/fi/xxkjd7iqo3ljnl07hf38l/20240712_224156.mp4?rlkey=ytlr5swqmdgrofl02giv4mvnu&st=7a8uq1yv&dl=1',
-
+    'https://www.dropbox.com/scl/fi/auw17d6m0hp4890qud2e1/VID_20231118_084818_012.mp4?raw=1',
+    'https://www.dropbox.com/scl/fi/xxkjd7iqo3ljnl07hf38l/20240712_224156.mp4?raw=1',
 ]
 
 user_videos = {}
@@ -185,15 +184,15 @@ user_videos = {}
 async def video_chiqarish(message: Message):
     user_id = message.from_user.id
 
-    if user_id not in user_videos:
-        user_videos[user_id] = list(video_urls)  
-
-    if not user_videos[user_id]:  
+    if user_id not in user_videos or not user_videos[user_id]:
         user_videos[user_id] = list(video_urls)
+        random.shuffle(user_videos[user_id])
 
-    random_video_url = user_videos[user_id].pop(0)  
-    await bot.send_video(chat_id=message.from_user.id, video=random_video_url)
-
+    random_video_url = user_videos[user_id].pop(0)
+    try:
+        await bot.send_video(chat_id=message.from_user.id, video=random_video_url)
+    except Exception as e:
+        await message.answer("Kechirasiz, videoni yuklashda xatolik yuz berdi.")
 
 
 @dp.message(F.text == "Botga start berganlar!")
